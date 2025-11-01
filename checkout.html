@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wearopia – Checkout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./CSS/navbar.css">
+  <link rel="stylesheet" href="CSS/checkout.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      font-size: 16px;
+      background: #FFF;
+      color: #000;
+    }
+
+    /* Toast Notifications */
+    .toast-container { 
+      position:fixed; 
+      top:24px; 
+      right:24px; 
+      z-index:9999; 
+      display:flex; 
+      flex-direction:column; 
+      gap:12px; 
+    }
+    .toast-notification { 
+      display:flex; 
+      align-items:center; 
+      gap:12px; 
+      background:white; 
+      padding:16px 20px; 
+      border-radius:12px; 
+      box-shadow:0 8px 24px rgba(0,0,0,.12); 
+      min-width:320px; 
+      animation:slideIn .3s ease; 
+    }
+    .toast-icon { 
+      width:24px; 
+      height:24px; 
+      flex-shrink:0; 
+    }
+    .toast-content { 
+      flex:1; 
+    }
+    .toast-title { 
+      font-size:14px; 
+      font-weight:600; 
+      color:#23262F; 
+      margin-bottom:4px; 
+    }
+    .toast-message { 
+      font-size:13px; 
+      color:#777E90; 
+    }
+    @keyframes slideIn { 
+      from { 
+        transform:translateX(400px); 
+        opacity:0; 
+      } 
+      to { 
+        transform:translateX(0); 
+        opacity:1; 
+      } 
+    }
+    @keyframes fadeOut { 
+      to { 
+        opacity:0; 
+        transform:translateX(400px); 
+      } 
+    }
+
+    .checkout-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .back-to-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #198754;
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+
+    .back-to-cart:hover {
+      color: #146c43;
+    }
+
+    .steps-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      margin-bottom: 48px;
+      justify-content: center;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .step-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .step-item.active .step-circle {
+      background: #198754;
+      color: #fff;
+    }
+
+    .step-item.completed .step-circle {
+      background: #198754;
+      color: #fff;
+    }
+
+    .step-item.inactive .step-circle {
+      background: #E6E8EC;
+      color: #777E90;
+    }
+
+    .step-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #23262F;
+    }
+
+    .step-item.inactive .step-label {
+      color: #777E90;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+    }
+
+    .form-section {
+      background: #FFF;
+      border: 1px solid #6C7275;
+      border-radius: 6px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #000;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #6C7275;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-control {
+      height: 40px;
+      border: 1px solid #CBCBCB;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: #000;
+    }
+
+    .form-control:focus {
+      border-color: #000;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .form-control::placeholder {
+      color: #6C7275;
+    }
+
+    .form-select {
+      height: 40px;
+      border: 1px solid #CBCBCB;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: #6C7275;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236C7275' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    }
+
+    .form-select:focus {
+      border-color: #000;
+      box-shadow: none;
+    }
+
+    .form-check {
+      padding-left: 1.8em;
+      margin-top: 16px;
+    }
+
+    .form-check-input {
+      width: 20px;
+      height: 20px;
+      margin-top: 0;
+      border: 1px solid #6C7275;
+      cursor: pointer;
+    }
+
+    .form-check-input:checked {
+      background-color: #198754;
+      border-color: #198754;
+    }
+
+    .form-check-label {
+      font-size: 16px;
+      color: #6C7275;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .payment-option {
+      border: 1px solid #6C7275;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .payment-option:hover {
+      border-color: #000;
+    }
+
+    .payment-option.active {
+      border-color: #198754;
+      background: #F8F9FA;
+    }
+
+    .payment-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .payment-radio {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #6C7275;
+      border-radius: 50%;
+      cursor: pointer;
+      accent-color: #198754;
+    }
+
+    .payment-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 24px;
+    }
+
+    .btn-place-order {
+      width: 100%;
+      height: 52px;
+      background: #198754;
+      color: #FFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-place-order:hover {
+      background: #146c43;
+    }
+
+    .btn-place-order:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .summary-card {
+      background: #FFF;
+      border: 1px solid #6C7275;
+      border-radius: 6px;
+      padding: 24px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .summary-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #000;
+    }
+
+    .order-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #E8ECEF;
+    }
+
+    .order-item:last-of-type {
+      border-bottom: none;
+      margin-bottom: 24px;
+    }
+
+    .item-image {
+      width: 80px;
+      height: 96px;
+      background: #F3F5F7;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 4px;
+    }
+
+    .item-color {
+      font-size: 12px;
+      color: #6C7275;
+      margin-bottom: 8px;
+    }
+
+    .item-qty-text {
+      font-size: 12px;
+      color: #6C7275;
+      font-weight: 500;
+    }
+
+    .item-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+      text-align: right;
+    }
+
+    .discount-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F3F5F7;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .discount-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .discount-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .discount-code {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .discount-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #198754;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .summary-label {
+      color: #000;
+      font-weight: 400;
+    }
+
+    .summary-value {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .total-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #6C7275;
+    }
+
+    .total-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .total-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    @media (max-width: 992px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      
+      .form-section {
+        padding: 24px;
+      }
+
+      .step-label {
+        display: none;
+      }
+
+      .steps-wrapper {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .checkout-container {
+        padding: 24px 16px;
+      }
+    }
+.container,
+.footer {
+  padding-left: 120px;
+  padding-right: 120px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+  .container,
+  .footer {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container,
+  .footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.error-border { border-color: #d9534f !important; box-shadow: none !important; }
+.error-msg { margin-top: 6px; color: #d9534f; font-size: 13px; }
+
+  </style>
+
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+
+
+<div class="checkout-container">
+  <a href="shopping-cart.html" class="back-to-cart">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to Cart
+  </a>
+
+  <!-- Steps -->
+  <div class="steps-wrapper">
+    <div class="step-item completed">
+      <div class="step-circle">✓</div>
+      <div class="step-label">Shopping cart</div>
+    </div>
+    <div class="step-item active">
+      <div class="step-circle">2</div>
+      <div class="step-label">Checkout details</div>
+    </div>
+    <div class="step-item inactive">
+      <div class="step-circle">3</div>
+      <div class="step-label">Order complete</div>
+    </div>
+  </div>
+
+  <div class="checkout-grid">
+    <div>
+      <!-- Contact Information -->
+      <div class="form-section">
+        <h2 class="section-title">Contact Information</h2>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">First Name *</label>
+            <input type="text" class="form-control" placeholder="First name" id="firstName" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="Last name" id="lastName">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" class="form-control" placeholder="Phone number" id="phone" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-control" placeholder="Your Email" id="email" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="form-section">
+        <h2 class="section-title">Shipping Address</h2>
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Street Address *</label>
+            <input type="text" class="form-control" placeholder="Street Address" id="address" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Country *</label>
+            <select class="form-select" id="country" required>
+              <option value="">Select Country</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Egypt">Egypt</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Town / City *</label>
+            <input type="text" class="form-control" placeholder="Town / City" id="city" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">State</label>
+            <input type="text" class="form-control" placeholder="State" id="state">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Zip Code</label>
+            <input type="text" class="form-control" placeholder="Zip Code" id="zipCode">
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="differentBilling">
+              <label class="form-check-label" for="differentBilling">
+                Use a different billing address (optional)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="form-section">
+        <h2 class="section-title">Payment method</h2>
+        
+        <div class="payment-option active" onclick="selectPayment(this)">
+          <div class="payment-left">
+            <input type="radio" name="payment" class="payment-radio" value="Credit Card" checked>
+            <span class="payment-label">Pay by Card Credit</span>
+          </div>
+          <svg class="card-icon" viewBox="0 0 32 24" fill="none">
+            <rect width="32" height="24" rx="4" fill="#E8ECEF"/>
+            <rect x="2" y="8" width="28" height="3" fill="#6C7275"/>
+            <rect x="2" y="15" width="8" height="2" fill="#6C7275"/>
+          </svg>
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this)">
+          <div class="payment-left">
+            <input type="radio" name="payment" class="payment-radio" value="Cash on Delivery">
+            <span class="payment-label">Cash on delivery</span>
+          </div>
+        </div>
+
+        <div id="cardFields" class="mt-3">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-control" placeholder="1234 1234 1234 1234" maxlength="19" id="cardNumber">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Expiration Date</label>
+              <input type="text" class="form-control" placeholder="MM/YY" maxlength="5" id="expiryDate">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">CVC</label>
+              <input type="text" class="form-control" placeholder="CVC code" maxlength="3" id="cvc">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Place Order Button -->
+      <button class="btn-place-order" id="placeOrderBtn">Place Order</button>
+    </div>
+
+    <!-- Right Column - Order Summary -->
+    <div>
+      <div class="summary-card">
+        <h3 class="summary-title">Order summary</h3>
+
+        <!-- Order Items Container -->
+        <div id="orderItemsContainer"></div>
+
+        <!-- Discount Badge -->
+        <div class="discount-badge" id="discountBadge" style="display: none;">
+          <div class="discount-left">
+            <svg class="discount-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M9 12L11 14L15 10M21 12C21 13.78 20.4722 15.5201 19.4832 17.0001C18.4943 18.4802 17.0887 19.6337 15.4442 20.3149C13.7996 20.9961 11.99 21.1743 10.2442 20.8271C8.49836 20.4798 6.89472 19.6226 5.63604 18.364C4.37737 17.1053 3.5202 15.5016 3.17294 13.7558C2.82567 12.01 3.0039 10.2004 3.68509 8.55585C4.36628 6.91131 5.51983 5.50571 6.99987 4.51677C8.47991 3.52784 10.22 3 12 3C14.387 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z" stroke="#198754" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="discount-code" id="couponCode">Discount</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span class="discount-value" id="discountValue">-$0.00</span>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-line">
+          <span class="summary-label">Shipping</span>
+          <span class="summary-value" id="shippingCost">Free</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Subtotal</span>
+          <span class="summary-value" id="subtotal">$0.00</span>
+        </div>
+
+        <div class="total-line">
+          <span class="total-label">Total</span>
+          <span class="total-value" id="total">$0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--stay in style-->
+<section class="hero3 text-center py-5" style="background-color: #f1f1f5;">
+  <div class="container px-4">
+    <h2 class="fw-bold text-dark mb-3" style="font-family: 'Poppins', sans-serif;">
+      Stay in Style
+    </h2>
+    <p class="text-secondary mb-4 mx-auto" style="max-width: 600px; font-family: 'Poppins', sans-serif;">
+      Subscribe to our newsletter and be the first to know about new arrivals, exclusive offers, and fashion
+      tips.
+    </p>
+
+    <form class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-3 w-100">
+      <div class="position-relative" style="max-width: 340px; width: 100%;">
+        <i class="fa-solid fa-envelope text-muted position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+        <input type="email" class="form-control ps-5 rounded-pill shadow-sm border-0" placeholder="Enter your email"
+          required />
+      </div>
+
+      <button type="submit" class="btn fw-semibold text-white rounded-pill px-4 py-2"
+        style="background-color: hsl(158, 74%, 23%); min-width: 130px;">
+        Subscribe
+      </button>
+    </form>
+  </div>
+</section>
+<!--end of stay in style-->
+<!--footer component-->
+<footer class="container-fluid bg-white d-flex align-items-center custom-footer">
+  <div class="container">
+    <div class="row gy-4 gx-5">
+      <div class="col-12 col-md-6 col-lg-3">
+        <h4 class="fw-bold text-success mb-3 fs-3">Wearopia</h4>
+        <p class="text-secondary small mb-4">
+          Discover your unique style with our curated collection of modern fashion pieces.
+        </p>
+
+        <ul class="list-unstyled text-secondary small mb-4">
+          <li class="mb-2">
+            <i class="fa-solid fa-location-dot me-2"></i>123 Fashion Street, Style City, SC 12345
+          </li>
+          <li class="mb-2">
+            <i class="fa-solid fa-phone me-2"></i>+1 (555) 123-STYLE
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope me-2"></i>hello@stylehub.com
+          </li>
+        </ul>
+
+        <div class="d-flex gap-3">
+          <a href="#"
+            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="#"
+            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="#"
+            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#"
+            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 col-lg-3">
+        <h5 class="fw-semibold text-black fs-6 mb-3">Quick Links</h5>
+        <ul class="list-unstyled text-secondary small">
+          <li class="mb-2">New Arrivals</li>
+          <li class="mb-2">Best Sellers</li>
+          <li class="mb-2">Sale</li>
+          <li class="mb-2">Gift Cards</li>
+          <li>Style Guide</li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-3 col-lg-3">
+        <h5 class="fw-semibold text-black fs-6 mb-3">Customer Care</h5>
+        <ul class="list-unstyled text-secondary small">
+          <li class="mb-2">Contact Us</li>
+          <li class="mb-2">Size Guide</li>
+          <li class="mb-2">Shipping & Returns</li>
+          <li class="mb-2">Track Your Order</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <h5 class="fw-semibold text-black fs-6 mb-3">Company</h5>
+        <ul class="list-unstyled text-secondary small">
+          <li class="mb-2">About Us</li>
+          <li class="mb-2">Careers</li>
+          <li class="mb-2">Press</li>
+          <li class="mb-2">Sustainability</li>
+          <li>Investors</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+<!--end of footer-->
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="JavaScript/components.js" defer></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const placeOrderBtn = document.getElementById("placeOrderBtn");
+  const cardFields = document.getElementById("cardFields");
+  const orderItemsContainer = document.getElementById("orderItemsContainer");
+  const subtotalEl = document.getElementById("subtotal");
+  const totalEl = document.getElementById("total");
+  const discountValueEl = document.getElementById("discountValue");
+  const shippingCostEl = document.getElementById("shippingCost");
+  const toastContainer = document.getElementById("toast-container");
+
+  // --- small toast helper (lightweight, no external deps) ---
+  function showToast(title, message, type = "info", timeout = 3000) {
+    if (!toastContainer) return;
+    const el = document.createElement("div");
+    el.className = "toast-notification";
+    el.style.border = "1px solid rgba(0,0,0,.06)";
+    el.innerHTML = `
+      <div class="toast-icon">${type === "success" ? '✅' : type === "error" ? '⛔' : 'ℹ️' }</div>
+      <div class="toast-content"><div class="toast-title">${title}</div><div class="toast-message">${message}</div></div>
+    `;
+    toastContainer.appendChild(el);
+    setTimeout(() => {
+      el.style.animation = "fadeOut 0.4s forwards";
+      setTimeout(()=> el.remove(), 450);
+    }, timeout);
+  }
+
+  // ---------- Validation Helpers ----------
+  function makeErrorEl(field) {
+    let next = field.nextElementSibling;
+    if (!next || !next.classList || !next.classList.contains("error-msg")) {
+      next = document.createElement("div");
+      next.className = "error-msg";
+      next.style.color = "#d9534f";
+      next.style.fontSize = "13px";
+      next.style.marginTop = "6px";
+      field.parentNode.insertBefore(next, field.nextSibling);
+    }
+    return next;
+  }
+
+  function showError(field, message) {
+    if (!field) return;
+    field.classList.add("error-border");
+    const err = makeErrorEl(field);
+    err.textContent = message;
+  }
+
+  function clearError(field) {
+    if (!field) return;
+    field.classList.remove("error-border");
+    const next = field.nextElementSibling;
+    if (next && next.classList && next.classList.contains("error-msg")) {
+      next.textContent = "";
+    }
+  }
+
+  // clear errors on input/change
+  ["input","change"].forEach(evt => {
+    document.addEventListener(evt, (e) => {
+      const t = e.target;
+      if (!t) return;
+      if (t.classList && (t.classList.contains("form-control") || t.classList.contains("form-select"))) {
+        clearError(t);
+      }
+    }, {capture:true});
+  });
+
+  function validateRequired(fieldId, message) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    if (!String(f.value || "").trim()) {
+      showError(f, message);
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  function validateEmail(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const v = (f.value || "").trim();
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(v)) {
+      showError(f, "Please enter a valid email.");
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  // ---- add this helper to validate names ----
+  function validateName(fieldId, message = "Please enter a valid name (letters only).") {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const v = (f.value || "").trim();
+    if (!v) {
+      showError(f, message);
+      f.focus();
+      return false;
+    }
+    // allow letters, accents, spaces, hyphen and apostrophe
+    // Note: using a conservative charset to work across browsers
+    const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
+    if (!nameRe.test(v) || v.length < 2) {
+      showError(f, message);
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  // Prevent typing numbers into name fields (soft UX guard)
+  // (this will remove digits if pasted/typed)
+  ["firstName","lastName"].forEach(id=>{
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      const before = el.value;
+      const after = before.replace(/[0-9]/g,'');
+      if (before !== after) el.value = after;
+    });
+  });
+
+  function validatePhone(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const raw = (f.value || "").trim();
+    // allow plus sign, spaces, dashes, parentheses; count digits only
+    const digits = raw.replace(/[^\d]/g, "");
+    if (digits.length < 7 || digits.length > 15) {
+      showError(f, "Please enter a valid phone number (7–15 digits).");
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  // Luhn algorithm for basic credit card validation
+  function luhnCheck(number) {
+    const digits = number.replace(/\D/g,'')
+    let sum = 0
+    let toggle = false
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let d = parseInt(digits[i], 10)
+      if (toggle) {
+        d *= 2
+        if (d > 9) d -= 9
+      }
+      sum += d
+      toggle = !toggle
+    }
+    return digits.length >= 13 && digits.length <= 19 && sum % 10 === 0
+  }
+
+  function validateCardNumber(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const v = (f.value || "").replace(/\s+/g,"");
+    if (!/^\d{13,19}$/.test(v) || !luhnCheck(v)) {
+      showError(f, "Enter a valid card number.");
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  function validateExpiry(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const val = (f.value || "").trim();
+    // Accept MM/YY or MM/YYYY
+    const m = val.match(/^(\d{1,2})\/(\d{2}|\d{4})$/);
+    if (!m) {
+      showError(f, "Enter expiration in MM/YY format.");
+      f.focus();
+      return false;
+    }
+    let month = Number(m[1]);
+    let year = Number(m[2]);
+    if (m[2].length === 2) {
+      year += 2000;
+    }
+    if (month < 1 || month > 12) {
+      showError(f, "Enter a valid month (01–12).");
+      f.focus();
+      return false;
+    }
+    const now = new Date();
+    const expiry = new Date(year, month); // first day of next month
+    if (expiry <= now) {
+      showError(f, "Card has expired.");
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  function validateCVC(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return false;
+    const v = (f.value || "").trim();
+    if (!/^\d{3,4}$/.test(v)) {
+      showError(f, "Enter a valid CVC (3 or 4 digits).");
+      f.focus();
+      return false;
+    }
+    clearError(f);
+    return true;
+  }
+
+  // ---- updated validateAll to use name & phone rules + credit-card checks ----
+  function validateAll() {
+    // name (first required, last optional but if provided must be valid)
+    if (!validateName("firstName", "First name is required and must contain only letters.")) return false;
+    const lastEl = document.getElementById("lastName");
+    if (lastEl && lastEl.value.trim()) {
+      if (!validateName("lastName", "Last name must contain only letters.")) return false;
+    }
+
+    // phone & email & address & country & city
+    if (!validateRequired("phone", "Phone number is required.")) return false;
+    if (!validatePhone("phone")) return false;
+    if (!validateRequired("email", "Email is required.")) return false;
+    if (!validateEmail("email")) return false;
+    if (!validateRequired("address", "Address is required.")) return false;
+    if (!validateRequired("country", "Country is required.")) return false;
+    if (!validateRequired("city", "City is required.")) return false;
+
+    // cart must not be empty
+    const cart = JSON.parse(localStorage.getItem("wearopia_cart") || "{}");
+    if (Object.keys(cart).length === 0) {
+      showToast("Cart empty", "You have no items in your cart.", "error");
+      return false;
+    }
+
+    // payment checks
+    const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+    if (!paymentMethod) {
+      showToast("Payment required", "Please select a payment method.", "error");
+      return false;
+    }
+    if (paymentMethod === "Credit Card") {
+      if (!validateRequired("cardNumber", "Card number is required.")) return false;
+      if (!validateCardNumber("cardNumber")) return false;
+      if (!validateRequired("expiryDate", "Expiration date is required.")) return false;
+      if (!validateExpiry("expiryDate")) return false;
+      if (!validateRequired("cvc", "CVC is required.")) return false;
+      if (!validateCVC("cvc")) return false;
+    }
+
+    return true;
+  }
+
+  // ---------- Payment Selection ----------
+  window.selectPayment = function(el) {
+    document.querySelectorAll(".payment-option").forEach(opt => {
+      opt.classList.remove("active");
+      const inp = opt.querySelector("input");
+      if (inp) inp.checked = false;
+    });
+    el.classList.add("active");
+    const inp = el.querySelector("input");
+    if (inp) inp.checked = true;
+    if (inp && inp.value === "Credit Card") {
+      cardFields.style.display = "block";
+    } else {
+      cardFields.style.display = "none";
+      // clear card errors if switching away
+      ["cardNumber","expiryDate","cvc"].forEach(id => {
+        const f = document.getElementById(id);
+        if (f) {
+          f.value = f.value || "";
+          clearError(f);
+        }
+      });
+    }
+  };
+
+  // ---------- Place Order ----------
+  async function placeOrder() {
+    // disable button to prevent double submits
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = "Processing...";
+
+    try {
+      const cart = JSON.parse(localStorage.getItem("wearopia_cart")) || {};
+      const allProducts = JSON.parse(localStorage.getItem("wearopia_products")) || {};
+      const orderItems = [];
+
+      // build items; if product details are missing, provide minimal fallback
+      Object.keys(cart).forEach(id => {
+        const qty = Number(cart[id]) || 0;
+        if (qty <= 0) return;
+        const product = allProducts[id] || { id, name: `Product ${id}`, image: "Images/Image.png", price: 0 };
+        const price = Number(product.price || 0);
+        orderItems.push({
+          id,
+          name: product.name || `Product ${id}`,
+          image: product.image || "Images/Image.png",
+          price,
+          quantity: qty
+        });
+      });
+
+      const subtotal = orderItems.reduce((s, it) => s + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0);
+      const discount = subtotal > 100 ? subtotal * 0.1 : 0;
+      const shipping = 0;
+      const total = subtotal + shipping - discount;
+
+      const orderData = {
+        orderId: `chk_${Date.now()}`,
+        date: new Date().toISOString(),
+        total: Number(total.toFixed(2)),
+        items: orderItems,
+        payment: {
+          method: document.querySelector('input[name="payment"]:checked').value
+        },
+        contact: {
+          firstName: (document.getElementById("firstName").value || "").trim(),
+          lastName: (document.getElementById("lastName").value || "").trim(),
+          email: (document.getElementById("email").value || "").trim(),
+          phone: (document.getElementById("phone").value || "").trim()
+        },
+        shippingAddress: {
+          address: (document.getElementById("address").value || "").trim(),
+          country: (document.getElementById("country").value || "").trim(),
+          city: (document.getElementById("city").value || "").trim(),
+          state: (document.getElementById("state").value || "").trim(),
+          zip: (document.getElementById("zipCode").value || "").trim()
+        }
+      };
+
+      // Save to localStorage
+      const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+      existingOrders.push(orderData);
+      localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+      // Clear cart and persist
+      localStorage.removeItem("wearopia_cart");
+
+      // Optionally show success toast and redirect to order complete
+      sessionStorage.setItem("wearopia_order_complete", JSON.stringify(orderData));
+      showToast("Order placed", "Your order has been placed successfully!", "success", 2200);
+      setTimeout(()=> window.location.href = "complete-order.html", 900);
+    } catch (err) {
+      console.error(err);
+      showToast("Error", "Failed to place order. Try again.", "error");
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Place Order";
+    }
+  }
+
+  placeOrderBtn.addEventListener("click", function() {
+    if (validateAll()) {
+      placeOrder();
+    }
+  });
+
+  // ---------- Order Summary ----------
+  function renderOrderSummary() {
+    orderItemsContainer.innerHTML = "";
+    let subtotal = 0;
+    const cart = JSON.parse(localStorage.getItem("wearopia_cart")) || {};
+    const allProducts = JSON.parse(localStorage.getItem("wearopia_products")) || {};
+
+    if (Object.keys(cart).length === 0) {
+      orderItemsContainer.innerHTML = "<p class='text-center text-muted py-3'>No items in your cart.</p>";
+    }
+
+    Object.keys(cart).forEach(id => {
+      const product = allProducts[id] || null;
+      const quantity = Number(cart[id]) || 0;
+      const price = product ? Number(product.price || 0) : 0;
+      const totalPrice = price * quantity;
+      subtotal += totalPrice;
+
+      const img = product && product.image ? product.image : "Images/Image.png";
+      const name = product && product.name ? product.name : `Product ${id}`;
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "d-flex align-items-center py-2 gap-3";
+      wrapper.innerHTML = `
+        <img src="${img}" alt="${name}" style="width:50px;height:50px;object-fit:cover;border-radius:4px;">
+        <div class="flex-grow-1">
+          <div>${name}</div>
+          <div class="text-muted">Qty: ${quantity}</div>
+        </div>
+        <div>$${totalPrice.toFixed(2)}</div>
+      `;
+      orderItemsContainer.appendChild(wrapper);
+    });
+
+    const discount = subtotal > 100 ? subtotal * 0.1 : 0;
+    discountValueEl.textContent = discount > 0 ? "-$" + discount.toFixed(2) : "$0.00";
+    subtotalEl.textContent = "$" + subtotal.toFixed(2);
+    const shipping = 0;
+    shippingCostEl.textContent = shipping === 0 ? "Free" : "$" + shipping.toFixed(2);
+    totalEl.textContent = "$" + (subtotal + shipping - discount).toFixed(2);
+
+    // ensure Place Order is enabled/disabled accordingly
+    placeOrderBtn.disabled = Object.keys(cart).length === 0;
+  }
+
+  renderOrderSummary();
+
+  // update summary if storage changes in another tab
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'wearopia_cart' || e.key === 'wearopia_products') {
+      renderOrderSummary();
+    }
+  });
+});
+</script>
+
+
+
+</body>
+</html>

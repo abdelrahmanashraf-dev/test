@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wearopia – Cart</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./CSS/navbar.css">
+  <link rel="stylesheet" href="CSS/shopping-cart.css">
+
+  <style>
+    body { font-family: "Inter", sans-serif; background:#FEFEFE; color:#121212; margin:0; line-height:1.5; }
+    .container-custom { max-width:1280px; margin:0 auto; padding:40px 24px; }
+    .breadcrumb-nav { font-size:14px; color:#605F5F; margin-bottom:24px; }
+    .breadcrumb-nav a { color:#605F5F; text-decoration:none; }
+    .breadcrumb-nav a:hover { color:#121212; }
+
+    .steps-wrapper { display:flex; align-items:center; gap:48px; margin-bottom:48px; justify-content:center; }
+    .step-item { display:flex; align-items:center; gap:12px; }
+    .step-circle { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:16px; }
+    .step-item.active .step-circle { background:#198754; color:#fff; }
+    .step-item.inactive .step-circle { background:#E6E8EC; color:#777E90; }
+    .step-label { font-size:16px; font-weight:500; color:#23262F; }
+    .step-item.inactive .step-label { color:#777E90; }
+
+    .cart-layout { display:grid; grid-template-columns:1fr 413px; gap:64px; align-items:start; }
+    .products-section { background:#FCFCFD; border:1px solid #E6E8EC; border-radius:16px; }
+    .summary-box { background:#FCFCFD; border:1px solid #E6E8EC; border-radius:16px; padding:32px; position:sticky; top:24px; }
+
+    .summary-title { font-size:20px; font-weight:600; margin-bottom:24px; color:#23262F; }
+    .summary-row { display:flex; justify-content:space-between; margin-bottom:16px; font-size:15px; }
+    .summary-label { color:#777E90; font-weight:400; }
+    .summary-value { color:#23262F; font-weight:600; }
+    .summary-total { display:flex; justify-content:space-between; margin-top:24px; padding-top:24px; border-top:1px solid #E6E8EC; font-size:20px; font-weight:700; color:#23262F; }
+    .btn-checkout { width:100%; background:#198754; color:white; border:none; padding:16px; border-radius:90px; font-size:15px; font-weight:600; cursor:pointer; margin-top:24px; transition:all .3s; }
+    .btn-checkout:hover { background:#141416; transform:translateY(-2px); box-shadow:0 8px 16px rgba(35,38,47,.16); }
+
+    /* Cart item styling to match provided screenshot */
+    .cart-item {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .cart-item-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cart-item-img {
+      width: 84px;
+      height: 84px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #f3f5f7;
+      flex-shrink: 0;
+    }
+    .product-meta h6 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #23262F;
+    }
+    .product-meta .meta-sub {
+      font-size: 13px;
+      color: #6C7275;
+      margin-top: 6px;
+    }
+    .remove-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #6C757D;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .remove-link.text-danger { color: #dc3545; }
+    .product-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #E6E8EC;
+      padding: 6px;
+      border-radius: 8px;
+      background: #fff;
+    }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      line-height: 1;
+      border-radius: 6px;
+      border: none;
+      background: #F3F5F7;
+      cursor: pointer;
+      font-weight: 600;
+      color: #23262F;
+    }
+    .qty-input {
+      width: 56px;
+      text-align: center;
+      border: none;
+      font-size: 14px;
+      background: transparent;
+      outline: none;
+    }
+    .price-block {
+      text-align: right;
+      min-width: 120px;
+    }
+    .price-strong {
+      font-size: 15px;
+      font-weight: 700;
+      color: #23262F;
+    }
+    .price-subtle {
+      font-size: 13px;
+      color: #6C7275;
+    }
+    .cart-row { border-bottom: 1px solid #E6E8EC; }
+
+    @media (max-width:991px) {
+      .cart-layout { grid-template-columns:1fr; gap:32px; }
+      .summary-box { position:static; }
+    }
+
+    /* Spacing adjustments for responsiveness */
+    .container-custom, .hero3, footer { padding-left:120px; padding-right:120px; box-sizing:border-box; }
+    @media (max-width:992px) {
+      .container-custom, .hero3, footer { padding-left:60px; padding-right:60px; }
+    }
+    @media (max-width:576px) {
+      .container-custom, .hero3, footer { padding-left:20px; padding-right:20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar-container"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Navbar -->
+
+<!-- (Include your navbar here if needed) -->
+
+<div class="container-custom">
+  <div class="breadcrumb-nav">
+    <a href="index.html">Home</a> / <span>Cart</span>
+  </div>
+
+  <div class="steps-wrapper">
+    <div class="step-item active">
+      <div class="step-circle">1</div>
+      <div class="step-label">Shopping cart</div>
+    </div>
+    <div class="step-item inactive">
+      <div class="step-circle">2</div>
+      <div class="step-label">Checkout details</div>
+    </div>
+    <div class="step-item inactive">
+      <div class="step-circle">3</div>
+      <div class="step-label">Order complete</div>
+    </div>
+  </div>
+
+  <!-- Cart Layout -->
+  <div class="cart-layout">
+    <!-- Left: Product List -->
+    <div class="products-section">
+      <div id="cartItemsContainer"></div>
+    </div>
+
+    <!-- Right: Summary -->
+    <div class="summary-box">
+      <div class="summary-title">Cart summary</div>
+
+      <div class="shipping-options">
+        <label class="radio-option d-flex justify-content-between">
+          <div><input type="radio" name="shipping" value="0" checked> Free shipping</div>
+          <span class="radio-price">$0.00</span>
+        </label>
+        <label class="radio-option d-flex justify-content-between">
+          <div><input type="radio" name="shipping" value="15"> Express shipping</div>
+          <span class="radio-price">+$15.00</span>
+        </label>
+        <label class="radio-option d-flex justify-content-between">
+          <div><input type="radio" name="shipping" value="21"> Pick Up</div>
+          <span class="radio-price">$21.00</span>
+        </label>
+      </div>
+
+      <div class="summary-row">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value" id="cartSubtotal">$0.00</span>
+      </div>
+
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+
+      <a href="checkout.html">
+        <button  class="btn-checkout" id="checkoutBtn">Checkout</button>
+      </a>
+
+      <div class="coupon-section mt-4 pt-3 border-top">
+        <div class="coupon-title">Have a coupon?</div>
+        <div class="coupon-subtitle">Add your code for an instant cart discount</div>
+        <div class="coupon-input-group d-flex gap-2">
+          <input type="text" class="coupon-input form-control" placeholder="Coupon Code" id="coupon-input">
+          <button class="btn-apply btn btn-success" id="apply-coupon">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter -->
+<section class="hero3 text-center py-5" style="background-color: #f1f1f5;">
+  <div class="container px-4">
+    <h2 class="fw-bold text-dark mb-3" style="font-family: 'Poppins', sans-serif;">Stay in Style</h2>
+    <p class="text-secondary mb-4 mx-auto" style="max-width: 600px; font-family: 'Poppins', sans-serif;">
+      Subscribe to our newsletter and be the first to know about new arrivals, exclusive offers, and fashion tips.
+    </p>
+    <form class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-3 w-100">
+      <div class="position-relative" style="max-width: 340px; width: 100%;">
+        <i class="fa-solid fa-envelope text-muted position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+        <input type="email" class="form-control ps-5 rounded-pill shadow-sm border-0" placeholder="Enter your email" required />
+      </div>
+      <button type="submit" class="btn fw-semibold text-white rounded-pill px-4 py-2" style="background-color: hsl(158, 74%, 23%); min-width: 130px;">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="container-fluid bg-white d-flex align-items-center custom-footer">
+  <div class="container">
+    <div class="row gy-4 gx-5">
+      <div class="col-12 col-md-6 col-lg-3">
+        <h4 class="fw-bold text-success mb-3 fs-3">Wearopia</h4>
+        <p class="text-secondary small mb-4">Discover your unique style with our curated collection of modern fashion pieces.</p>
+        <ul class="list-unstyled text-secondary small mb-4">
+          <li class="mb-2"><i class="fa-solid fa-location-dot me-2"></i>123 Fashion Street, Style City</li>
+          <li class="mb-2"><i class="fa-solid fa-phone me-2"></i>+1 (555) 123-STYLE</li>
+          <li><i class="fa-solid fa-envelope me-2"></i>hello@stylehub.com</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ✅ Working JavaScript -->
+
+
+<script src="JavaScript/components.js" defer></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const cartContainer = document.getElementById("cartItemsContainer");
+  const cartSubtotalEl = document.getElementById("cartSubtotal");
+  const cartTotalEl = document.getElementById("cartTotal");
+
+  // Load cart and products from localStorage
+  let cart = JSON.parse(localStorage.getItem("wearopia_cart")) || {};
+  const allProducts = JSON.parse(localStorage.getItem("wearopia_products")) || {};
+
+  // Helper: fetch product details
+  function getProductDetails(id) {
+    return allProducts[id] || null;
+  }
+
+  // Update total considering shipping
+  function updateTotalWithShipping() {
+    const subtotal = parseFloat(cartSubtotalEl.textContent.replace("$", "")) || 0;
+    const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+    const shippingCost = selectedShipping ? parseFloat(selectedShipping.value) : 0;
+    cartTotalEl.textContent = "$" + (subtotal + shippingCost).toFixed(2);
+  }
+
+  // Render cart items (new markup matches supplied design)
+  function renderCart() {
+    cartContainer.innerHTML = "";
+    let subtotal = 0;
+    const productIds = Object.keys(cart);
+
+    if (productIds.length === 0) {
+      cartContainer.innerHTML = "<p class='text-center text-muted py-5'>Your cart is empty 🛒</p>";
+      cartSubtotalEl.textContent = "$0.00";
+      cartTotalEl.textContent = "$0.00";
+      return;
+    }
+
+    productIds.forEach(id => {
+      const product = getProductDetails(id);
+      if (!product) return;
+      const quantity = Number(cart[id]) || 1;
+      const itemTotal = (Number(product.price) || 0) * quantity;
+      subtotal += itemTotal;
+
+      cartContainer.innerHTML += `
+        <div class="cart-item cart-row py-3" data-id="${id}">
+          <div class="cart-item-left">
+            <img src="${product.image || 'Images/Image.png'}" alt="${product.name || ''}" class="cart-item-img" onerror="this.onerror=null;this.src='Images/Image.png'">
+            <div class="product-meta">
+              <h6>${product.name || 'Product'}</h6>
+              <div class="meta-sub">Color: ${product.color || "-"} <span class="mx-2">|</span> Size: ${product.size || "-"}</div>
+              <button class="remove-link remove-item" data-id="${id}">Remove</button>
+            </div>
+          </div>
+
+          <div class="product-actions">
+            <div class="qty-control" aria-label="Quantity control for ${product.name || ''}">
+              <button class="qty-btn qty-decrease" data-id="${id}" aria-label="Decrease quantity">−</button>
+              <input type="number" min="1" value="${quantity}" class="cart-qty qty-input" data-id="${id}">
+              <button class="qty-btn qty-increase" data-id="${id}" aria-label="Increase quantity">+</button>
+            </div>
+
+            <div class="price-block">
+              <div class="price-strong">$${Number(product.price || 0).toFixed(2)}</div>
+              <div class="price-subtle">Subtotal</div>
+              <div class="price-strong">$${itemTotal.toFixed(2)}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    cartSubtotalEl.textContent = "$" + subtotal.toFixed(2);
+    updateTotalWithShipping();
+  }
+
+  // Remove item (click on remove link or trash icon)
+  cartContainer.addEventListener("click", e => {
+    // remove button
+    const removeBtn = e.target.closest(".remove-item");
+    if (removeBtn) {
+      const id = removeBtn.dataset.id;
+      if (!id) return;
+      delete cart[id];
+      localStorage.setItem("wearopia_cart", JSON.stringify(cart));
+      renderCart();
+      return;
+    }
+
+    // quantity +/- buttons
+    const dec = e.target.closest(".qty-decrease");
+    if (dec) {
+      const id = dec.dataset.id;
+      if (!id) return;
+      const current = Number(cart[id] || 1);
+      const next = Math.max(1, current - 1);
+      cart[id] = next;
+      localStorage.setItem("wearopia_cart", JSON.stringify(cart));
+      renderCart();
+      return;
+    }
+    const inc = e.target.closest(".qty-increase");
+    if (inc) {
+      const id = inc.dataset.id;
+      if (!id) return;
+      const current = Number(cart[id] || 1);
+      const next = current + 1;
+      cart[id] = next;
+      localStorage.setItem("wearopia_cart", JSON.stringify(cart));
+      renderCart();
+      return;
+    }
+  });
+
+  // Update quantity when user edits the input directly
+  cartContainer.addEventListener("input", e => {
+    const input = e.target.closest(".cart-qty");
+    if (!input) return;
+
+    const id = input.dataset.id;
+    const newQty = Math.max(1, parseInt(input.value) || 1);
+    cart[id] = newQty;
+    localStorage.setItem("wearopia_cart", JSON.stringify(cart));
+    // don't re-render immediately to avoid losing focus during typing;
+    // instead, update totals after a short debounce
+    setTimeout(() => renderCart(), 150);
+  });
+
+  // Update total when shipping option changes
+  document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+    radio.addEventListener('change', updateTotalWithShipping);
+  });
+
+  // Initial render
+  renderCart();
+});
+</script>
+
+
+
+</body>
+</html>

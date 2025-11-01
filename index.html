@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="./CSS/components.css">
+<script src="./JavaScript/components.js" defer></script>
+    <style>
+        .custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+.custom-img {
+  height: 280px;
+  object-fit: cover;
+}console.log('🔐 Login page loaded');
+
+const
+.custom-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.custom-icon:hover {
+  color: #198754;
+  transform: scale(1.1);
+}
+.add-to-cart-btn {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+.custom-card:hover .add-to-cart-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+.wishlist-icon {
+  color: #6c757d;
+  font-size: 16px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.wishlist-icon.active {
+  color: #dc3545; 
+  transform: scale(1.2);
+}
+.wishlist-active {
+  transform: scale(1.15);
+  transition: transform .18s ease;
+}
+.text-danger { color: #dc3545 !important; }
+
+
+    </style>
+</head>
+
+<body>
+
+  <div id="navbar-container"></div>
+
+
+
+    <!--hero section-->
+    <section class="hero-section text-center text-white p-0 m-0">
+      <div class="container-fluid p-0">
+        <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+    
+          <!-- Slides -->
+          <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active slide-1">
+              <div class="overlay"></div>
+              <div class="hero-content p-4">
+                <h1 class="fw-bold display-5 mb-3">Step Into Style this <br> Season</h1>
+                <p class="lead mb-4">Discover new arrivals and exclusive offers</p>
+                <a href="product-catalog.html" class="btn btn-light btn-lg rounded-pill px-4 btn-hero"
+                  style="color: #0F6546;">
+                  Shop Now
+                </a>
+              </div>
+            </div>
+    
+            <!-- Slide 2 -->
+            <div class="carousel-item slide-2">
+              <div class="overlay"></div>
+              <div class="hero-content p-4">
+                <h1 class="fw-bold display-5 mb-3">New Collection <br> Just Arrived</h1>
+                <p class="lead mb-4">Explore the latest trends in fashion</p>
+                <a href="product-catalog.html" class="btn btn-light btn-lg rounded-pill px-4 btn-hero"
+                  style="color: #0F6546;">
+                  Shop Now
+                </a>
+              </div>
+            </div>
+    
+            <!-- Slide 3 -->
+            <div class="carousel-item slide-3">
+              <div class="overlay"></div>
+              <div class="hero-content p-4">
+                <h1 class="fw-bold display-5 mb-3">Limited Time <br> Special Offers</h1>
+                <p class="lead mb-4">Don't miss out on amazing deals</p>
+                <a href="product-catalog.html" class="btn btn-light btn-lg rounded-pill px-4 btn-hero"
+                  style="color: #0F6546;">
+                  Shop Now
+                </a>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </section>
+
+
+
+    <!--shop b category-->
+    <section class="py-5 text-center">
+      <div class="container" style="max-width: 1200px;">
+        <h2 class="fw-bold mb-4" style="color: #0F6546;">Shop By Category</h2>
+        <div class="row g-4">
+    
+          <!-- Men -->
+    
+          <div class="col-12 col-sm-6 col-lg-3">
+            
+            <div class="category-card position-relative overflow-hidden rounded-4 shadow-sm">
+              <img src="Images/man.jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="Men">
+              <div class="overlay d-flex justify-content-center align-items-end ">
+                <a href="product-catalog.html#Men-Section-category" class="text-white text-decoration-none  category-button mb-3"> Men</a>
+              </div>
+            </div>
+            </a>
+          </div>
+    
+          <!-- Women -->
+    
+          <div class="col-12 col-sm-6 col-lg-3">
+            
+            <div class="category-card position-relative overflow-hidden rounded-4 shadow-sm">
+              <img src="Images/womenjpg.jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="Women">
+              <div class="overlay d-flex justify-content-center align-items-end ">
+                <a href="product-catalog.html#Women-Section-category" class="text-white text-decoration-none  category-button mb-3"> Women</a>
+              </div>
+            </div>
+            </a>
+          </div>
+    
+    
+          <!-- Kids -->
+    
+          <div class="col-12 col-sm-6 col-lg-3">
+            
+            <div class="category-card position-relative overflow-hidden rounded-4 shadow-sm">
+              <img src="Images/kid-cat.jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="Kids">
+              <div class="overlay d-flex justify-content-center align-items-end ">
+                <a  href="product-catalog.html#Kids-Section-category" class="text-white   category-button mb-3 text-decoration-none"> Kids</a>
+              </div>
+            </div>
+            </a>
+          </div>
+    
+    
+    
+    
+          <!-- Accessory -->
+    
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="category-card position-relative overflow-hidden rounded-4 shadow-sm">
+              <img src="Images/accessory (1).jpeg" class="img-fluid w-100 h-100 object-fit-cover" alt="Accessory">
+              <div class="overlay d-flex justify-content-center align-items-end ">
+                <a href="product-catalog.html#Accessories-Section-category" class="text-white  category-button mb-3 text-decoration-none"> Accessory</a>
+              </div>
+            </div>
+            </a>
+          </div>
+    
+    
+        </div>
+      </div>
+    </section>
+    <!--end of category-->
+
+    <!-- Happiness Section -->
+    
+    <section class="embroidery-section">
+      <div class="container-fluid p-0">
+        <div class="row g-0">
+          <!-- Content Side -->
+          <div class="col-lg-6">
+            <div class="content-side">
+              <h1>Your designs, stitched with care</h1>
+              <p>Make your ideas stand out: with high quality embroidery designs on caps, shirts, jumpers & more.
+              </p>
+              <a href="product-catalog.html" class="cta-button">Shop Now</a>
+            </div>
+          </div>
+    
+          <!-- Image Side -->
+          <div class="col-lg-6">
+            <div class="image-side">
+              <img src="Images/Happiness.png" alt="Green hoodie with happiness embroidery" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!--End Of Happiness Section -->
+
+    <!-- Featured Products -->
+    <section class="py-5 text-center">
+      <div class="container" style="max-width: 1200px;">
+        <h2 class="fw-bold mb-5" style="color: #0F6546;">Featured Products</h2>
+        <div class="row g-4" id="featured-products-row">
+          <!-- Products will be dynamically inserted here -->
+        </div>
+        <a href="product-catalog.html" class="border-0 text-light px-5 py-2 my-5 rounded-pill d-inline-block text-decoration-none view-all" >View All</a>
+      </div>
+    </section>
+    
+    <!--Hallowen section-->
+    <section class="halloween-section">
+      <div class="content-wrapper">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <img src="Images/Ideas.png" alt="Halloween T-shirt" class="halloween-img">
+          </div>
+          <div class="col-lg-6 p-5">
+            <div class="text-content">
+              <h1>Halloween<br>gift ideas</h1>
+              <p>
+                Get ready for chills and thrills with Halloween designs on T-shirts, hoodies and more! Perfect
+                for you and your fright-loving friends - or as gifts for any horror fan. Boo!
+              </p>
+              <a href="product-catalog.html" class="shop-btn text-decoration-none">Shop Now</a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Hallowen section-->
+
+
+
+    <!--sale section-->
+    <section class="hero2 position-relative text-white text-center  py-5">
+      <div class="container position-relative z-2">
+        <h5 class="d-flex justify-content-center align-items-center gap-2 mb-2">
+          <i class="fa-solid fa-clock"></i>
+          Limited Time Offer
+        </h5>
+    
+        <h1 class="fw-bold display-4 mb-3">Up to 50% Off</h1>
+    
+        <p class="lead text-light mx-auto mb-4" style="max-width: 600px;">
+          Don't miss out on our biggest sale of the season. Shop your favorite brands at unbeatable prices.
+        </p>
+    
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
+          <a href="product-catalog.html" class="btn btn-light text-success fw-semibold px-4 py-2 rounded-pill button-hover text-decoration-none">
+            Shop Sale Now
+          </a>
+    
+          <div class="hero2-timer text-white fw-medium">
+            Ends in:
+            <span class="time-box">2d</span>
+            <span class="time-box">14h</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--end of sale section-->
+
+    <!-- Reviews section-->
+    <div class="container-reviews my-5">
+    
+      <div class="text-center mt-5 mb-2 py-5">
+        <div class="container">
+          <h2 class="fw-bold  mb-2" style="color: #0F6546;">Customer Reviews</h2>
+          <h5 class="text-secondary mb-3">What Our Clients Say</h5>
+          <p class="text-muted">
+            Don’t just take our word for it — hear from our satisfied customers
+          </p>
+        </div>
+      </div>
+      <div class="testimonials-grid ">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="d-flex justify-content-between">
+            <div class="stars">
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+            </div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+          <p class="testimonial-text">
+            "Wearobia has become my go-to destination for elegant pieces. The quality is exceptional, and every item
+            feels like a timeless investment. Their customer service is outstanding!"
+          </p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/150?img=1" alt="Sarah Johnson" class="reviewer-image">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Sarah Johnson</div>
+              <div class="reviewer-title">Fashion Blogger</div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="d-flex justify-content-between">
+            <div class="stars">
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+            </div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+          <p class="testimonial-text">
+            "I recommend Wearobia to all my clients. The collection is carefully curated with pieces that transition
+            seamlessly from day to night. Absolutely love the sustainable approach!"
+          </p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/150?img=5" alt="Emma Martinez" class="reviewer-image">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Emma Martinez</div>
+              <div class="reviewer-title">Stylist</div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="d-flex justify-content-between">
+            <div class="stars">
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+              <span class="star"><i class="fa-solid fa-star"></i></span>
+            </div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-right"></i></div>
+          </div>
+          <p class="testimonial-text">
+            "The attention to detail is remarkable. Every purchase I've made has exceeded my expectations. Wearobia
+            truly understands modern sophistication and delivers it perfectly."
+          </p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/150?img=9" alt="Jessica Chen" class="reviewer-image">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Jessica Chen</div>
+              <div class="reviewer-title">Creative Director</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of Reviews section-->
+
+    <!--stay in style-->
+    <section class="hero3 text-center py-5" style="background-color: #f1f1f5;">
+        <div class="container px-4">
+            <h2 class="fw-bold text-dark mb-3" style="font-family: 'Poppins', sans-serif;">
+                Stay in Style
+            </h2>
+            <p class="text-secondary mb-4 mx-auto" style="max-width: 600px; font-family: 'Poppins', sans-serif;">
+                Subscribe to our newsletter and be the first to know about new arrivals, exclusive offers, and fashion
+                tips.
+            </p>
+
+            <form class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-3 w-100">
+                <div class="position-relative" style="max-width: 340px; width: 100%;">
+                    <i
+                        class="fa-solid fa-envelope text-muted position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input type="email" class="form-control ps-5 rounded-pill shadow-sm border-0"
+                        placeholder="Enter your email" required />
+                </div>
+
+                <button type="submit" class="btn fw-semibold text-white rounded-pill px-4 py-2"
+                    style="background-color: hsl(158, 74%, 23%); min-width: 130px;">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+    <!--end of stay in style-->
+
+    <!--footer component-->
+    <footer class="container-fluid bg-white d-flex align-items-center custom-footer">
+        <div class="container">
+            <div class="row gy-4 gx-5">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h4 class="fw-bold text-success mb-3 fs-3">Wearopia</h4>
+                    <p class="text-secondary small mb-4">
+                        Discover your unique style with our curated collection of modern fashion pieces.
+                    </p>
+
+                    <ul class="list-unstyled text-secondary small mb-4">
+                        <li class="mb-2">
+                            <i class="fa-solid fa-location-dot me-2"></i>123 Fashion Street, Style City, SC 12345
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa-solid fa-phone me-2"></i>+1 (555) 123-STYLE
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope me-2"></i>hello@stylehub.com
+                        </li>
+                    </ul>
+
+                    <div class="d-flex gap-3">
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Quick Links</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">New Arrivals</li>
+                        <li class="mb-2">Best Sellers</li>
+                        <li class="mb-2">Sale</li>
+                        <li class="mb-2">Gift Cards</li>
+                        <li>Style Guide</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Customer Care</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">Contact Us</li>
+                        <li class="mb-2">Size Guide</li>
+                        <li class="mb-2">Shipping & Returns</li>
+                        <li class="mb-2">Track Your Order</li>
+                        <li>FAQ</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Company</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">About Us</li>
+                        <li class="mb-2">Careers</li>
+                        <li class="mb-2">Press</li>
+                        <li class="mb-2">Sustainability</li>
+                        <li>Investors</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!--end of footer-->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="JavaScript/components.js"></script>
+<script src="JavaScript/index.js"></script>
+<script src="JavaScript/featured.js" defer></script>
+<script>
+// Migrate data from wearopia_wishlist -> wishlist (safe, idempotent).
+(function migrateWishlistKey() {
+  try {
+    const srcKey = 'wearopia_wishlist';
+    const dstKey = 'wishlist';
+
+    // Read both keys (if dst already present we'll merge)
+    const rawSrc = localStorage.getItem(srcKey);
+    const rawDst = localStorage.getItem(dstKey);
+
+    const parseSafe = (r) => {
+      try { return r ? JSON.parse(r) : null; } catch { return null; }
+    };
+
+    const src = parseSafe(rawSrc);
+    const dst = parseSafe(rawDst);
+
+    // Normalize to numeric id array
+    const toArray = (v) => {
+      if (!v) return [];
+      if (Array.isArray(v)) return v.slice();
+      if (typeof v === 'object') return Object.keys(v);
+      return [];
+    };
+
+    let a = toArray(src).map(x => (x === null ? null : Number(x))).filter(x => x !== null && !Number.isNaN(x));
+    let b = toArray(dst).map(x => (x === null ? null : Number(x))).filter(x => x !== null && !Number.isNaN(x));
+
+    // merge unique
+    const merged = Array.from(new Set([...(b || []), ...(a || [])]));
+
+    // save under canonical 'wishlist'
+    localStorage.setItem(dstKey, JSON.stringify(merged));
+    // optional: remove source key (do it if you want)
+    // localStorage.removeItem(srcKey);
+
+    console.log(`Migrated ${merged.length} wishlist id(s) -> localStorage['${dstKey}']`, merged);
+  } catch (e) {
+    console.error('Wishlist migration failed', e);
+  }
+})();
+</script>
+</body>
+
+</html>

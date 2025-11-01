@@ -1,0 +1,66 @@
+/*stay in style*/
+.hero3 input::placeholder {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.hero3 input:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 576px) {
+    .hero3 form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero3 .input-group {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero3 button {
+        width: 70%;
+        padding: 10px 0;
+        font-size: 1rem;
+        border-radius: 28px;
+    }
+
+    .hero3 h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero3 p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+/*end of stay in style*/
+/* footer */
+.custom-footer {
+    padding: 40px;
+    min-height: 372px;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+}
+
+@media (min-width: 768px) {
+    .custom-footer {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
+
+@media (min-width: 992px) {
+    .custom-footer {
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}
+
+/*end of footer*/

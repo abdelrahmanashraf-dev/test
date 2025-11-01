@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #0F6546;
+            --light-green: #e8f4f4;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .sidebar-col {
+            flex: 0 0 auto;
+            width: 250px;
+        }
+
+        .sidebar {
+            background: white;
+            height: calc(100vh - 32px);
+            padding: 16px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 16px;
+            position: sticky;
+            top: 16px;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 16px 8px;
+            width: 100%;
+        }
+
+        .logo {
+            color: var(--primary-green);
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-short {
+            display: none;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 15px 10px 40px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .search-icon-only {
+            display: none;
+        }
+
+        .nav-item {
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .nav-item span {
+            transition: all 0.3s ease;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: auto;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #e0e0e0;
+        }
+
+        .user-info {
+            transition: all 0.3s ease;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            display: inline-block;
+            background-color: #7FD4B5;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .user-actions {
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn {
+            color: #B01212;
+            font-size: 14px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            text-decoration: underline;
+        }
+
+        .Settings-btn i {
+            color: #7D7D7D;
+            font-size: 14px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .main-content {
+            padding: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .main-col {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .size-btn {
+            width: 32px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            padding: 3px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .size-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .color-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .color-option.active {
+            border-color: var(--primary-green);
+            transform: scale(1.1);
+        }
+
+        .color-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .image-upload-area {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary-green);
+            background: var(--light-green);
+        }
+
+        .image-preview-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .image-preview {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .image-preview.active {
+            border-color: var(--primary-green);
+            border-width: 3px;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview.add-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px dashed #dee2e6;
+        }
+
+        .image-preview.add-more:hover {
+            border-color: var(--primary-green);
+            background: var(--light-green);
+        }
+
+
+        .btn-add-product {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-add-product:hover {
+            background: #0a5555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 110, 110, 0.3);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-preview:hover .remove-image {
+            opacity: 1;
+        }
+
+        @media (max-width: 1400px) {
+            .sidebar-col {
+                width: 220px;
+            }
+
+            .sidebar {
+                padding: 14px;
+            }
+
+            .card-body {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar-col {
+                width: 80px;
+            }
+
+            .logo {
+                margin-bottom: 20px;
+            }
+
+            .logo-full {
+                display: none;
+            }
+
+            .logo-short {
+                display: block;
+                font-size: 28px;
+                text-align: center;
+
+            }
+
+            .search-box {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .search-box input {
+                display: none;
+            }
+
+            .search-box i {
+                position: static;
+                transform: none;
+                font-size: 20px;
+                padding: 12px;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: all 0.3s;
+            }
+
+            .search-box i:hover {
+                background-color: var(--light-green);
+                color: var(--primary-green);
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 12px;
+            }
+
+            .nav-item span {
+                display: none;
+            }
+
+            .nav-item i {
+                font-size: 20px;
+                margin: 0;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .user-profile {
+                justify-content: center;
+                padding: 15px 8px;
+            }
+
+            .user-profile .d-flex {
+                align-items: center;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .user-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .Settings-btn,
+            .logout-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                padding: 8px;
+            }
+
+            .Settings-btn span,
+            .logout-btn span {
+                display: none;
+            }
+
+            .Settings-btn i,
+            .logout-btn i {
+                margin: 0 !important;
+                font-size: 18px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-col {
+                width: 70px;
+            }
+
+            .sidebar {
+                padding: 12px 6px;
+                margin: 16px 4px;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+
+            .logo-short {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .search-box {
+                margin-bottom: 8px;
+            }
+
+            .search-box i {
+                font-size: 18px;
+                padding: 10px;
+            }
+
+            .nav-item {
+                padding: 10px;
+                margin-bottom: 4px;
+            }
+
+            .nav-item i {
+                font-size: 18px;
+            }
+
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .Settings-btn i,
+            .logout-btn i {
+                font-size: 16px;
+            }
+
+            .main-content {
+                padding: 12px 8px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .card-body {
+                padding: 15px 12px;
+            }
+
+            .image-upload-area {
+                min-height: 180px;
+                padding: 15px;
+            }
+
+            .btn-add-product {
+                margin-bottom: 20px;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+
+            .size-btn {
+                width: 30px;
+                font-size: 12px;
+                padding: 4px 2px;
+            }
+
+            .color-option {
+                width: 28px;
+                height: 28px;
+            }
+
+            .image-preview {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar-col {
+                width: 60px;
+            }
+
+            .sidebar {
+                padding: 10px 4px;
+                margin: 12px 4px;
+            }
+
+            .logo {
+                margin-bottom: 8px;
+            }
+
+            .logo-short {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .search-box {
+                margin-bottom: 8px;
+            }
+
+            .search-box i {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .nav-item {
+                padding: 8px;
+                margin-bottom: 3px;
+            }
+
+            .nav-item i {
+                font-size: 16px;
+            }
+
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+            }
+
+            .Settings-btn,
+            .logout-btn {
+                padding: 6px;
+            }
+
+            .Settings-btn i,
+            .logout-btn i {
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 8px 6px;
+            }
+
+            .card-body {
+                padding: 15px 10px;
+            }
+
+            .section-title {
+                font-size: 15px;
+                margin-bottom: 12px;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .form-label {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+
+            .btn-add-product {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .size-btn {
+                width: 28px;
+                font-size: 11px;
+                padding: 3px 1px;
+            }
+
+            .color-option {
+                width: 26px;
+                height: 26px;
+            }
+
+            .image-preview {
+                width: 55px;
+                height: 55px;
+            }
+
+            .image-upload-area {
+                min-height: 150px;
+                padding: 12px;
+            }
+
+            .image-upload-area i {
+                font-size: 2rem !important;
+            }
+
+            .image-upload-area p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+
+            <div class="sidebar-col">
+                <div class="sidebar">
+                    <a href="seller-dashboard.html" class="logo text-decoration-none">
+                        <span class="logo-full">Wearopia</span>
+                        <span class="logo-short">W</span>
+                    </a>
+
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+
+                    <div class="nav-item">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </div>
+                    <a href="sellers-products.html" class="nav-item text-decoration-none active">
+                        <i class="fas fa-box"></i>
+                        <span>products</span>
+                    </a>
+                    <div class="nav-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>orders</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </div>
+
+                    <div class="user-profile">
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex my-3">
+                                <div>
+                                    <img src="Images/seller image.png"
+                                        alt="User" class="user-avatar">
+                                </div>
+                                <div class="mx-3 user-info">
+                                    <div class="user-name">Mohamed Amr</div>
+                                    <span class="user-role">Seller</span>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <div class="Settings-btn fs-6 my-3">
+                                    <i class="fa-solid fa-gear mx-2"></i> <span>Settings</span>
+                                </div>
+                                <div class="logout-btn fs-6">
+                                    <i class="fas fa-sign-out-alt mx-2"></i> <span>Log out</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main-col">
+                <div class="main-content">
+                    <div class="row">
+
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="section-title">General Information</h5>
+                                    <div class="mb-3">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" id="productName" placeholder="First name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <textarea class="form-control" id="productDescription" rows="6" placeholder="Step into a realm of unparalleled off-duty style with these grey acid wash joggers that effortlessly marry fashion with comfort. Crafted for those committed to style even on their days off, these joggers feature a chic drawstring waist and a wide leg cut. The distinctive acid wash adds a to..."></textarea>
+                                    </div>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <label class="form-label">Size:</label>
+                                        <button class="size-btn active" data-size="XS">XS</button>
+                                        <button class="size-btn" data-size="S">S</button>
+                                        <button class="size-btn active" data-size="M">M</button>
+                                        <button class="size-btn" data-size="L">L</button>
+                                        <button class="size-btn" data-size="XL">XL</button>
+                                        <button class="size-btn" data-size="XXL">XXL</button>
+                                    </div>
+                                    <div class="d-flex gap-2 flex-wrap mt-3">
+                                        <label class="form-label">Color:</label>
+                                        <div class="color-option" style="background-color: #2d3748;"></div>
+                                        <div class="color-option" style="background-color: #cbd5e0;"></div>
+                                        <div class="color-option active" style="background-color: #000000;"></div>
+                                        <div class="color-option" style="background-color: #2c5282;"></div>
+                                        <div class="color-option" style="background-color: #4a5568;"></div>
+                                        <div class="color-option" style="background-color: #ffffff; border: 1px solid #e2e8f0;"></div>
+                                        <div class="color-option" style="background-color: #ffffff; border: 1px solid #e2e8f0;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="section-title">Pricing and stock</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">PRICE</label>
+                                                <input type="text" class="form-control" placeholder="State">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">DISCOUNT</label>
+                                                <input type="text" class="form-control" placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">STOCK</label>
+                                                <input type="text" class="form-control" placeholder="Zip Code">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">DISCOUNT TYPE</label>
+                                                <input type="text" class="form-control" placeholder="Zip Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="section-title">Upload Images</h5>
+                                    <div class="image-upload-area">
+                                        <img src="" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="image-preview-container">
+                                        <div class="image-preview active">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div class="image-preview">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div class="image-preview">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div class="image-preview">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div class="image-preview add-more">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="section-title">category</h5>
+                                    <div class="mb-3">
+                                        <label class="form-label">PRODUCT CATEGORY</label>
+                                        <select class="form-select">
+                                            <option>Jacket</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">PRODUCT CATEGORY</label>
+                                        <select class="form-select">
+                                            <option>Jacket</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn-add-product">Add product</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./JavaScript/add-product.js"></script>
+    <script src="./JavaScript/logout.js"></script>
+</body>
+
+</html>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        let uploadedImages = [];
+        let selectedImageIndex = 0;
+
+        
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+
+        const fileInput = document.getElementById('fileInput');
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const mainImage = document.getElementById('mainImage');
+        const mainImageContainer = document.getElementById('mainImageContainer');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const addMoreBtn = document.getElementById('addMoreBtn');
+
+        imageUploadArea.addEventListener('click', () => fileInput.click());
+        addMoreBtn.addEventListener('click', () => fileInput.click());
+
+        // Drag and drop
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.style.borderColor = 'var(--primary-green)';
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.style.borderColor = '#dee2e6';
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.style.borderColor = '#dee2e6';
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach((file) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        uploadedImages.push(e.target.result);
+
+                        if (uploadedImages.length === 1) {
+                            mainImage.src = e.target.result;
+                            mainImageContainer.style.display = 'block';
+                            uploadPrompt.style.display = 'none';
+                        }
+
+                        addImagePreview(e.target.result, uploadedImages.length - 1);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function addImagePreview(src, index) {
+            if (uploadedImages.length === 1) {
+                imagePreviewContainer.innerHTML = '';
+            }
+
+            const preview = document.createElement('div');
+            preview.className = 'image-preview';
+            if (index === selectedImageIndex) preview.classList.add('active');
+
+            const img = document.createElement('img');
+            img.src = src;
+
+            const removeBtn = document.createElement('div');
+            removeBtn.className = 'remove-image';
+            removeBtn.innerHTML = '×';
+            removeBtn.onclick = (e) => {
+                e.stopPropagation();
+                removeImage(index);
+            };
+
+            preview.appendChild(img);
+            preview.appendChild(removeBtn);
+
+            preview.addEventListener('click', () => {
+                selectedImageIndex = index;
+                mainImage.src = uploadedImages[index];
+                document.querySelectorAll('.image-preview').forEach(p => p.classList.remove('active'));
+                preview.classList.add('active');
+            });
+
+            imagePreviewContainer.insertBefore(preview, addMoreBtn);
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            rebuildImagePreviews();
+        }
+
+        function rebuildImagePreviews() {
+            imagePreviewContainer.innerHTML = '';
+            if (uploadedImages.length === 0) {
+                mainImageContainer.style.display = 'none';
+                uploadPrompt.style.display = 'block';
+                selectedImageIndex = 0;
+            } else {
+                if (selectedImageIndex >= uploadedImages.length) selectedImageIndex = uploadedImages.length - 1;
+                mainImage.src = uploadedImages[selectedImageIndex];
+                uploadedImages.forEach((img, idx) => addImagePreview(img, idx));
+            }
+            const addMore = document.createElement('div');
+            addMore.className = 'image-preview add-more';
+            addMore.id = 'addMoreBtn';
+            addMore.innerHTML = '<i class="fas fa-plus fa-2x" style="color: var(--primary-green);"></i>';
+            addMore.onclick = () => fileInput.click();
+            imagePreviewContainer.appendChild(addMore);
+        }
+
+        function validateNumber(value, fieldName, isInteger = false, min = 0, max = null) {
+            const num = isInteger ? parseInt(value) : parseFloat(value);
+
+            if (isNaN(num)) {
+                return { valid: false, message: `${fieldName} must be a valid number` };
+            }
+
+            if (num < min) {
+                return { valid: false, message: `${fieldName} must be at least ${min}` };
+            }
+
+            if (max !== null && num > max) {
+                return { valid: false, message: `${fieldName} cannot exceed ${max}` };
+            }
+
+            if (isInteger && !Number.isInteger(num)) {
+                return { valid: false, message: `${fieldName} must be a whole number` };
+            }
+
+            return { valid: true };
+        }
+
+        function saveProductToStorage(productData) {
+            let products = JSON.parse(localStorage.getItem('products') || '[]');
+
+            const timestamp = Date.now();
+            const categoryCode = productData.category.substring(0, 3).toUpperCase();
+            const productNumber = String(products.length + 1).padStart(3, '0');
+
+            productData.id = timestamp;
+            productData.productId = `WR-${categoryCode}-${productNumber}`;
+            productData.status = productData.stock > 0 ? 'active' : 'inactive';
+
+            products.push(productData);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            console.log(' Product saved successfully!', productData);
+            console.log(' Total products in storage:', products.length);
+        }
+
+        document.querySelector('.btn-add-product').addEventListener('click', function () {
+            let hasError = false;
+
+            const productName = document.getElementById('productName');
+            const productNameValue = productName.value.trim();
+            const productNameFeedback = productName.nextElementSibling;
+            if (!productNameValue) {
+                productName.classList.add('is-invalid');
+                productNameFeedback.textContent = 'Product Name is required';
+                productNameFeedback.style.display = 'block';
+                hasError = true;
+            } else if (productNameValue.length < 3) {
+                productName.classList.add('is-invalid');
+                productNameFeedback.textContent = 'Product Name must be at least 3 characters';
+                productNameFeedback.style.display = 'block';
+                hasError = true;
+            } else {
+                productName.classList.remove('is-invalid');
+                productNameFeedback.style.display = 'none';
+            }
+
+            const productDesc = document.getElementById('productDescription');
+            const productDescValue = productDesc.value.trim();
+            const productDescFeedback = productDesc.nextElementSibling;
+            if (!productDescValue) {
+                productDesc.classList.add('is-invalid');
+                productDescFeedback.textContent = 'Description is required';
+                productDescFeedback.style.display = 'block';
+                hasError = true;
+            } else if (productDescValue.length < 10) {
+                productDesc.classList.add('is-invalid');
+                productDescFeedback.textContent = 'Description must be at least 10 characters';
+                productDescFeedback.style.display = 'block';
+                hasError = true;
+            } else {
+                productDesc.classList.remove('is-invalid');
+                productDescFeedback.style.display = 'none';
+            }
+
+            const priceInput = document.getElementById('price');
+            const priceValue = priceInput.value.trim();
+            const priceFeedback = priceInput.nextElementSibling;
+            if (!priceValue) {
+                priceInput.classList.add('is-invalid');
+                priceFeedback.textContent = 'Price is required';
+                priceFeedback.style.display = 'block';
+                hasError = true;
+            } else {
+                const priceValidation = validateNumber(priceValue, 'Price', false, 0.01, 1000000);
+                if (!priceValidation.valid) {
+                    priceInput.classList.add('is-invalid');
+                    priceFeedback.textContent = priceValidation.message;
+                    priceFeedback.style.display = 'block';
+                    hasError = true;
+                } else {
+                    priceInput.classList.remove('is-invalid');
+                    priceFeedback.style.display = 'none';
+                }
+            }
+
+            const stockInput = document.getElementById('stock');
+            const stockValue = stockInput.value.trim();
+            const stockFeedback = stockInput.nextElementSibling;
+            if (!stockValue) {
+                stockInput.classList.add('is-invalid');
+                stockFeedback.textContent = 'Stock is required';
+                stockFeedback.style.display = 'block';
+                hasError = true;
+            } else {
+                const stockValidation = validateNumber(stockValue, 'Stock', true, 0, 100000);
+                if (!stockValidation.valid) {
+                    stockInput.classList.add('is-invalid');
+                    stockFeedback.textContent = stockValidation.message;
+                    stockFeedback.style.display = 'block';
+                    hasError = true;
+                } else {
+                    stockInput.classList.remove('is-invalid');
+                    stockFeedback.style.display = 'none';
+                }
+            }
+
+            const discountInput = document.getElementById('discount');
+            const discountValue = discountInput.value.trim();
+            const discountType = document.getElementById('discountType').value;
+
+            if (discountValue) {
+                let discountValidation;
+                if (discountType === 'percentage') {
+                    discountValidation = validateNumber(discountValue, 'Discount', false, 0, 100);
+                } else if (discountType === 'fixed') {
+                    const price = parseFloat(priceInput.value.trim()) || 0;
+                    discountValidation = validateNumber(discountValue, 'Discount', false, 0, price);
+                    if (discountValidation.valid && parseFloat(discountValue) >= price) {
+                        discountValidation = { valid: false, message: 'Discount cannot be greater than or equal to price' };
+                    }
+                } else {
+                    discountValidation = { valid: true };
+                }
+
+                if (!discountValidation.valid) {
+                    showToast(discountValidation.message, 'danger');
+                    hasError = true;
+                }
+            }
+
+            const imageError = document.getElementById('imageError');
+            if (uploadedImages.length === 0) {
+                imageError.style.display = 'block';
+                hasError = true;
+            } else {
+                imageError.style.display = 'none';
+            }
+
+            const selectedSizes = document.querySelectorAll('.size-btn.active');
+            if (selectedSizes.length === 0) {
+                showToast('Please select at least one size', 'danger');
+                hasError = true;
+            }
+
+            const selectedColors = document.querySelectorAll('.color-option.active');
+            if (selectedColors.length === 0) {
+                showToast('Please select at least one color', 'danger');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            const productData = {
+                name: document.getElementById('productName').value.trim(),
+                description: document.getElementById('productDescription').value.trim(),
+                sizes: Array.from(document.querySelectorAll('.size-btn.active')).map(btn => btn.dataset.size),
+                colors: Array.from(document.querySelectorAll('.color-option.active')).map(option => option.dataset.color),
+                price: parseFloat(document.getElementById('price').value.trim()),
+                stock: parseInt(document.getElementById('stock').value.trim()),
+                discount: document.getElementById('discount').value.trim() || '0',
+                discountType: document.getElementById('discountType').value,
+                category: document.getElementById('productCategory').value,
+                images: uploadedImages,
+                createdAt: new Date().toISOString()
+            };
+
+            saveProductToStorage(productData);
+            showToast('Product added successfully! Redirecting...', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'sellers-products.html';
+            }, 1500);
+        });
+
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('productToast');
+            toastContainer.classList.remove('text-bg-success', 'text-bg-danger');
+            toastContainer.classList.add(type === 'success' ? 'text-bg-success' : 'text-bg-danger');
+            toastContainer.querySelector('.toast-body').textContent = message;
+            const toast = new bootstrap.Toast(toastContainer, { delay: 3000 });
+            toast.show();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            console.log('Current products in storage:', products.length);
+        });
+
+    </script>
+</body>
+
+</html>

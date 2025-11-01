@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service - Wearopia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        :root {
+            --primary-green: #047857;
+            --light-green: #059669;
+            --hover-green: #065f46;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+        }
+
+        .brand {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .btn-green {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .btn-green:hover {
+            background-color: var(--hover-green);
+            color: white;
+        }
+
+        .sidebar {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-section {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-email {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-member {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .menu-item:hover {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .content-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-subtitle {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
+        }
+
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .ticket-item:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .ticket-icon {
+            font-size: 1.5rem;
+            color: #6b7280;
+            margin-right: 1rem;
+        }
+
+        .ticket-info {
+            flex: 1;
+        }
+
+        .ticket-title {
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .ticket-meta {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .btn-view {
+            background-color: transparent;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 0.375rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-view:hover {
+            background-color: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .ticket-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-open {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+                /* footer */
+        .custom-footer {
+            padding: 40px;
+            min-height: 372px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        @media (min-width: 768px) {
+            .custom-footer {
+                padding-left: 80px;
+                padding-right: 80px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .custom-footer {
+                padding-left: 120px;
+                padding-right: 120px;
+            }
+        }
+
+        /*end of footer*/
+
+        /* Success notification */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <div class="sidebar">
+                    <div class="profile-section">
+                        <div class="profile-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="profile-name">Abdelrahman</div>
+                        <div class="profile-email">Abdelrahman@example.com</div>
+                        <div class="profile-member">Member since January 2023</div>
+                    </div>
+                    <nav>
+                        <a href="mainProfile.html" class="menu-item">
+                            <i class="bi bi-person"></i>
+                            <span>Personal Info</span>
+                        </a>
+                        <a href="ProfileOrders.html" class="menu-item">
+                            <i class="bi bi-box-seam"></i>
+                            <span>Orders</span>
+                        </a>
+                        <a href="profile.html" class="menu-item active">
+                            <i class="bi bi-headset"></i>
+                            <span>Customer service</span>
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <span>Addresses</span>
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-lg-9 col-md-8">
+                <!-- Submit Support Ticket -->
+                <div class="content-card">
+                    <h2 class="content-title">Submit a Support Ticket</h2>
+                    <p class="content-subtitle">Describe your issue and we'll get back to you</p>
+
+                    <form id="ticketForm">
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="ticketSubject"
+                                placeholder="e.g., Issue with order delivery" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" id="ticketCategory" required>
+                                <option value="">Select a category</option>
+                                <option value="Shipping & Delivery">Shipping & Delivery</option>
+                                <option value="Product Quality">Product Quality</option>
+                                <option value="Payment Issues">Payment Issues</option>
+                                <option value="Returns & Refunds">Returns & Refunds</option>
+                                <option value="Account Issues">Account Issues</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" id="ticketMessage" rows="4"
+                                placeholder="Describe your issue in detail..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-green">
+                            <i class="bi bi-file-earmark-text me-2"></i>
+                            Submit Ticket
+                        </button>
+                    </form>
+                </div>
+
+                
+                <div class="content-card">
+                    <h2 class="content-title">Your Support Tickets</h2>
+                    <p class="content-subtitle">View and track your support requests</p>
+
+                    <div id="userTicketsList">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="container-fluid bg-white d-flex align-items-center custom-footer">
+        <div class="container">
+            <div class="row gy-4 gx-5">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h4 class="fw-bold text-success mb-3 fs-3">Wearopia</h4>
+                    <p class="text-secondary small mb-4">
+                        Discover your unique style with our curated collection of modern fashion pieces.
+                    </p>
+
+                    <ul class="list-unstyled text-secondary small mb-4">
+                        <li class="mb-2">
+                            <i class="fa-solid fa-location-dot me-2"></i>123 Fashion Street, Style City, SC 12345
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa-solid fa-phone me-2"></i>+1 (555) 123-STYLE
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope me-2"></i>hello@stylehub.com
+                        </li>
+                    </ul>
+
+                    <div class="d-flex gap-3">
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="d-flex align-items-center justify-content-center border border-secondary rounded-circle text-dark text-decoration-none fs-6 social-icon">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Quick Links</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">New Arrivals</li>
+                        <li class="mb-2">Best Sellers</li>
+                        <li class="mb-2">Sale</li>
+                        <li class="mb-2">Gift Cards</li>
+                        <li>Style Guide</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Customer Care</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">Contact Us</li>
+                        <li class="mb-2">Size Guide</li>
+                        <li class="mb-2">Shipping & Returns</li>
+                        <li class="mb-2">Track Your Order</li>
+                        <li>FAQ</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="fw-semibold text-black fs-6 mb-3">Company</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2">About Us</li>
+                        <li class="mb-2">Careers</li>
+                        <li class="mb-2">Press</li>
+                        <li class="mb-2">Sustainability</li>
+                        <li>Investors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--end of footer-->
+<script src="JavaScript/components.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="./JavaScript/profile.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

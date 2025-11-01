@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wearopia Navbar</title>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./CSS/navbar.css">
+</head>
+<body>
+
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <!-- الشعار -->
+      <a href="index.html" class="navbar-brand">Wearopia</a>
+
+      <!-- القائمة -->
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="#">Man</a></li>
+        <li><a href="#">Women</a></li>
+        <li><a href="#">Kids</a></li>
+        <li><a href="#">Accessory</a></li>
+      </ul>
+
+      <!-- البحث -->
+      <div class="search-container">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="search-box" placeholder="Search for outfits...">
+      </div>
+
+      <!-- الأكشنات -->
+      <div class="navbar-actions">
+        <div class="dropdown" id="userDropdownWrapper">
+          <a href="#" id="loginBtn">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Login</span>
+          </a>
+          <div class="dropdown-menu" id="userMenu">
+            <a href="mainProfile.html" class="dropdown-item"><i class="bi bi-person"></i> Profile</a>
+            <a href="#" class="dropdown-item"><i class="bi bi-bag"></i> Orders</a>
+            <a href="WHISLIST.HTML" class="dropdown-item"><i class="bi bi-heart"></i> Wishlist</a>
+            <hr>
+            <a href="#" class="dropdown-item text-danger" id="logoutBtn">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </div>
+        </div>
+
+        <a href="WHISLIST.HTML" id="wishlistBtn">
+          <i class="bi bi-heart"></i>
+          <span>Wishlist</span>
+          <span class="badge-count" id="wishlistCount">0</span>
+        </a>
+
+        <a href="shopping-cart.html" id="cartBtn">
+          <i class="bi bi-bag"></i>
+          <span>Cart</span>
+          <span class="badge-count" id="cartCount"></span>
+        </a>
+        
+
+      <!-- زر القائمة (على اليمين) -->
+      <button class="menu-toggle" id="menuToggle">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-dropdown" id="mobileMenu">
+      <div class="mobile-search">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="search-box" placeholder="Search for outfits...">
+      </div>
+      <ul>
+        <li><a href="#">Man</a></li>
+        <li><a href="#">Women</a></li>
+        <li><a href="#">Kids</a></li>
+        <li><a href="#">Accessory</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Toggle mobile menu
+      $('#menuToggle').on('click', function() {
+        $('#mobileMenu').toggleClass('show');
+      });
+
+      // Close menu when a link is clicked
+      $('#mobileMenu a').on('click', function() {
+        $('#mobileMenu').removeClass('show');
+      });
+    });
+  </script>
+
+</body>
+</html>
